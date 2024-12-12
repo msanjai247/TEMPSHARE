@@ -156,4 +156,4 @@ async def main():
     await application.run_polling()
 
 # Run the bot in an already running event loop (for environments like Jupyter)
-await main()
+    await main()
