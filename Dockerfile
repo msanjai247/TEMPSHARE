@@ -1,7 +1,7 @@
-# Use an official Python image as the base image
+# Use the official Python image
 FROM python:3.12-slim
 
-# Install system dependencies for building packages with C extensions
+# Install necessary system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     python3-dev \
@@ -10,17 +10,21 @@ RUN apt-get update && apt-get install -y \
     g++ \
     libssl-dev \
     libffi-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /app
 
-# Copy your Python files into the container
+# Copy the current directory contents into the container
 COPY . /app
 
-# Install the required Python packages
+# Install Python dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+# Expose the port for the bot (optional if you want to run the bot in webhooks mode, but for polling this is not necessary)
+EXPOSE 80
 
 # Command to run the bot
 CMD ["python", "bot.py"]
