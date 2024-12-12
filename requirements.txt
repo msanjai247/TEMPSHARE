@@ -1,5 +1,4 @@
-aiohttp==3.8.1
-python-telegram-bot==20.0
-tqdm==4.64.0
-nest_asyncio==1.5.4
+aiohttp==3.8.5
 psutil==5.9.4
+python-telegram-bot==20.0
+nest_asyncio==1.5.6
