@@ -4,4 +4,4 @@ psutil
 requests
 python-telegram-bot==20.0
 nest-asyncio
-libtorrent==1.2.16  # or whatever version you are using
+
