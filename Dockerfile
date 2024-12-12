@@ -4,12 +4,15 @@ FROM python:3.10-slim
 # Set the working directory
 WORKDIR /app
 
-# Install system dependencies for libtorrent and other necessary tools for debugging
+# Install system dependencies for libtorrent
 RUN apt-get update && apt-get install -y \
     libtorrent-rasterbar-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy the bot code and requirements
+# Install the Python bindings for libtorrent
+RUN pip install python-libtorrent
+
+# Copy the bot code and requirements into the container
 COPY . /app
 
 # Install Python dependencies
