@@ -1,23 +1,22 @@
-# Use the official Python image
-FROM python:3.10-slim
+# Use the official Python image from Docker Hub
+FROM python:3.9-slim
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Install system dependencies (curl, required for file uploads)
-RUN apt-get update && apt-get install -y \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install necessary Python packages
-COPY requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the bot code into the container
+# Copy the application code to the container
 COPY . /app
 
-# Expose the default port (if needed for Koyeb)
-EXPOSE 80
+# Install system dependencies and Python packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    curl \
+    && pip install --no-cache-dir -r requirements.txt \
+    && apt-get clean
 
-# Run the bot
-CMD ["python", "-u", "bot.py"]
+# Expose the port that the bot will run on
+EXPOSE 8080
+
+# Run the application
+CMD ["python", "bot.py"]
