@@ -1,5 +1,6 @@
-# Use the official Python image
-FROM python:3.12-slim
+# Change from python:3.12-slim to python:3.11-slim
+FROM python:3.11-slim
+
 
 # Install necessary system dependencies
 RUN apt-get update && apt-get install -y \
