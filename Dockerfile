@@ -1,13 +1,23 @@
-FROM python:3.12-slim
+# Use the official Python image
+FROM python:3.10-slim
 
-# Install build dependencies for aiohttp and other packages
+# Set the working directory
+WORKDIR /app
+
+# Install system dependencies (curl, required for file uploads)
 RUN apt-get update && apt-get install -y \
-    gcc \
-    libffi-dev \
-    python3-dev \
-    libssl-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install your dependencies
-COPY requirements.txt .
+# Install necessary Python packages
+COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the bot code into the container
+COPY . /app
+
+# Expose the default port (if needed for Koyeb)
+EXPOSE 80
+
+# Run the bot
+CMD ["python", "-u", "bot.py"]
