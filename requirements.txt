@@ -1,7 +1,4 @@
-aiohttp
-asyncio
-psutil
-requests
+aiohttp==3.11.10
 python-telegram-bot==20.0
-nest-asyncio
-
+tqdm==4.65.0
+nest-asyncio==1.6.0
