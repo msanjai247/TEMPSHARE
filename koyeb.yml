@@ -1,0 +1,16 @@
+name: telegram-bot
+services:
+  - name: telegram-bot-service
+    type: web
+    description: "Telegram bot for downloading files and torrents"
+    routes:
+      - name: default-route
+        path: /
+    instance:
+      instance_type: "nano"
+    env:
+      - name: API_TOKEN
+        value: "6742093428:AAE8hSesQ2hHw3Gk4-m0e_F65TJs7W9uKxY"  # Replace with your actual token
+    build:
+      type: docker
+      dockerfile_path: ./Dockerfile
