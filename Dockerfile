@@ -4,18 +4,13 @@ FROM python:3.10-slim
 # Set the working directory
 WORKDIR /app
 
-# Install system dependencies for libtorrent
-RUN apt-get update && apt-get install -y \
-    libtorrent-rasterbar-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install the Python bindings for libtorrent
+# Install the Python bindings for libtorrent (precompiled wheels)
 RUN pip install python-libtorrent
 
 # Copy the bot code and requirements into the container
 COPY . /app
 
-# Install Python dependencies
+# Install Python dependencies from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the default port (required by Telegram Bot API)
