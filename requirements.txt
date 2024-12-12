@@ -3,4 +3,3 @@ python-telegram-bot==20.0
 tqdm==4.64.0
 nest_asyncio==1.5.4
 psutil==5.9.4
-sqlite3==3.36.0
