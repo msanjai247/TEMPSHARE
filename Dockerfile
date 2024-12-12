@@ -1,22 +1,24 @@
-# Use the official Python image from Docker Hub
-FROM python:3.9-slim
+# Use an official Python image as the base image
+FROM python:3.12-slim
 
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the application code to the container
-COPY . /app
-
-# Install system dependencies and Python packages
+# Install dependencies needed for compiling
 RUN apt-get update && apt-get install -y \
     build-essential \
-    libpq-dev \
-    curl \
-    && pip install --no-cache-dir -r requirements.txt \
-    && apt-get clean
+    python3-dev \
+    libaio-dev \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
 
-# Expose the port that the bot will run on
-EXPOSE 8080
+# Set the working directory
+WORKDIR /app
 
-# Run the application
+# Copy the application files into the container
+COPY . /app
+
+# Install required Python packages
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# Command to run the application
 CMD ["python", "bot.py"]
