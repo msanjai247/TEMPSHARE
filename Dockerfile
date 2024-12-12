@@ -4,17 +4,20 @@ FROM python:3.10-slim
 # Set the working directory
 WORKDIR /app
 
-# Install the Python bindings for libtorrent (precompiled wheels)
-RUN pip install python-libtorrent
+# Install system dependencies (curl, required for file uploads)
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy the bot code and requirements into the container
-COPY . /app
-
-# Install Python dependencies from requirements.txt
+# Install necessary Python packages
+COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the default port (required by Telegram Bot API)
+# Copy the bot code into the container
+COPY . /app
+
+# Expose the default port (if needed for Koyeb)
 EXPOSE 80
 
-# Run the bot with unbuffered output for better logging and debugging
+# Run the bot
 CMD ["python", "-u", "bot.py"]
